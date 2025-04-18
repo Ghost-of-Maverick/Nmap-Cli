@@ -40,3 +40,12 @@ def get_scan_by_id(scan_id):
     row = cursor.fetchone()
     conn.close()
     return row
+
+def clear_scan_history():
+    conn = sqlite3.connect("nmap_scans.db")
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM scans")
+    rows_deleted = cursor.rowcount
+    conn.commit()
+    conn.close()
+    return rows_deleted > 0

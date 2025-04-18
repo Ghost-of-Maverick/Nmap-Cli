@@ -11,7 +11,7 @@ from scanner import run_scan
 from scan_profiles import scan_profiles
 from state import AppState
 from utils import print_banner
-from db import init_db, get_scan_history, get_scan_by_id
+from db import init_db, get_scan_history, get_scan_by_id, clear_scan_history
 
 console = Console()
 
@@ -26,6 +26,7 @@ def print_help():
     table.add_row("run", "Execute the configured scan")
     table.add_row("history", "Show saved scan history")
     table.add_row("view_result <id>", "View the output of a previous scan by ID")  
+    table.add_row("clean", "Delete all scan history")
     table.add_row("help", "Show this help menu")
     table.add_row("exit / quit", "Exit the CLI tool")
 
@@ -132,6 +133,26 @@ def main():
                 console.print(scan[4])
             else:
                 console.print(f"[red]No scan found with ID {scan_id}[/red]")
+        elif user_input == "clean":
+            while True:
+                confirm = session.prompt(
+                    HTML('<yellow>Are you sure you want to delete all scan history? (yes/no): </yellow>')
+                ).strip().lower()
+                if confirm == "yes":
+                    data_deleted = clear_scan_history()
+                    if data_deleted:
+                        console.print("[bold red]All scan history has been cleared.[/bold red]")
+                    else:
+                        console.print("[yellow]No scan history found to delete.[/yellow]")
+                    break
+                elif confirm == "no":
+                    console.print("[green]Cancelled. No data was deleted.[/green]")
+                    break
+                else:
+                    console.print("[red]Please type 'yes' or 'no'.[/red]")
+                    
+        #elif user_input == "clear":
+        #    console.clear()     
         elif user_input in ["exit", "quit"]:
             console.print("[bold green]Goodbye![/bold green]")
             break
