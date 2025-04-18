@@ -32,3 +32,11 @@ def get_scan_history():
     rows = cursor.fetchall()
     conn.close()
     return rows
+
+def get_scan_by_id(scan_id):
+    conn = sqlite3.connect("nmap_scans.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, target, scan_type, command, result, timestamp FROM scans WHERE id = ?", (scan_id,))
+    row = cursor.fetchone()
+    conn.close()
+    return row

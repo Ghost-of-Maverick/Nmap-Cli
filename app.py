@@ -11,7 +11,7 @@ from scanner import run_scan
 from scan_profiles import scan_profiles
 from state import AppState
 from utils import print_banner
-from db import init_db, get_scan_history
+from db import init_db, get_scan_history, get_scan_by_id
 
 console = Console()
 
@@ -25,6 +25,7 @@ def print_help():
     table.add_row("show options", "Show currently selected target and scan")
     table.add_row("run", "Execute the configured scan")
     table.add_row("history", "Show saved scan history")
+    table.add_row("view_result <id>", "View the output of a previous scan by ID")  
     table.add_row("help", "Show this help menu")
     table.add_row("exit / quit", "Exit the CLI tool")
 
@@ -113,7 +114,24 @@ def main():
                 for row in history:
                     table.add_row(str(row[0]), row[1], row[2], row[3])
                 console.print(table)
+        elif user_input.startswith("view_result"):
+            parts = user_input.split()
+            if len(parts) != 2 or not parts[1].isdigit():
+                console.print("[red]Usage: view_result <id>[/red]")
+                continue
 
+            scan_id = int(parts[1])
+            scan = get_scan_by_id(scan_id)
+            if scan:
+                console.print(f"\n[bold]Scan ID:[/bold] {scan[0]}")
+                console.print(f"[bold]Target:[/bold] {scan[1]}")
+                console.print(f"[bold]Scan Type:[/bold] {scan[2]}")
+                console.print(f"[bold]Command:[/bold] {scan[3]}")
+                console.print(f"[bold]Timestamp:[/bold] {scan[5]}")
+                console.print("\n[bold green]Result:[/bold green]")
+                console.print(scan[4])
+            else:
+                console.print(f"[red]No scan found with ID {scan_id}[/red]")
         elif user_input in ["exit", "quit"]:
             console.print("[bold green]Goodbye![/bold green]")
             break

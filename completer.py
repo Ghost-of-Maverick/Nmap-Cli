@@ -3,14 +3,18 @@ from prompt_toolkit.completion import NestedCompleter
 command_completer = NestedCompleter.from_nested_dict({
     "set": {
         "target": None,
-        "scan": None
+        "scan": None,
     },
     "show": {
-        "options": None
+        "options": None,
     },
     "run": None,
     "history": None,
+    "view_result": {
+        "<id>": None
+    },
     "help": None,
     "exit": None,
-    "quit": None
+    "quit": None,
 })
+
