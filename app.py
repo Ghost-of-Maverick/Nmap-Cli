@@ -25,7 +25,8 @@ def print_help():
     table.add_row("show options", "Show currently selected target and scan")
     table.add_row("run", "Execute the configured scan")
     table.add_row("history", "Show saved scan history")
-    table.add_row("view_result <id>", "View the output of a previous scan by ID")  
+    table.add_row("view <id>", "View the output of a previous scan by ID")
+    table.add_row("clear", "Clear the console")  
     table.add_row("clean", "Delete all scan history")
     table.add_row("help", "Show this help menu")
     table.add_row("exit / quit", "Exit the CLI tool")
@@ -34,6 +35,8 @@ def print_help():
 
 
 def main():
+    
+    console.clear() # Clear the console for a fresh start
     print_banner()
     init_db()
     state = AppState()
@@ -115,10 +118,10 @@ def main():
                 for row in history:
                     table.add_row(str(row[0]), row[1], row[2], row[3])
                 console.print(table)
-        elif user_input.startswith("view_result"):
+        elif user_input.startswith("view"):
             parts = user_input.split()
             if len(parts) != 2 or not parts[1].isdigit():
-                console.print("[red]Usage: view_result <id>[/red]")
+                console.print("[red]Usage: view <id>[/red]")
                 continue
 
             scan_id = int(parts[1])
@@ -151,8 +154,8 @@ def main():
                 else:
                     console.print("[red]Please type 'yes' or 'no'.[/red]")
                     
-        #elif user_input == "clear":
-        #    console.clear()     
+        elif user_input == "clear":
+            console.clear()     
         elif user_input in ["exit", "quit"]:
             console.print("[bold green]Goodbye![/bold green]")
             break

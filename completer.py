@@ -10,9 +10,10 @@ command_completer = NestedCompleter.from_nested_dict({
     },
     "run": None,
     "history": None,
-    "view_result": {
+    "view": {
         "<id>": None
     },
+    "clear": None,
     "help": None,
     "exit": None,
     "quit": None,
