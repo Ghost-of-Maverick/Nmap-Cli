@@ -40,8 +40,8 @@ pip install -r requirements.txt
 Clone the repository:
 
 ```
-https://github.com/Ghost-of-Maverick/Nmap-Cli.git
-cd Nmap-Cli/
+git clone https://github.com/Ghost-of-Maverick/Nmap-Shell.git
+cd Nmap-Shell/
 ```
 
 (Optional) Create and activate a virtual environment:
