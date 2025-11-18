@@ -1,7 +1,7 @@
 # 🛰️ Nmap Shell - Command Line Interface for Nmap
 
 <p align="center">
-  <img src="logo/logo" width="200" alt="nmapShell logo">
+  <img src="logo/logo.png" width="200" alt="nmapShell logo">
 </p>
 
 **Nmap Shell** is an interactive and user-friendly command-line shell built to simplify running **Nmap scans**, managing predefined scan profiles, viewing previous results, and keeping a persistent scan history.  
